@@ -1,4 +1,4 @@
-function glavnaia!(r::Robot) # - главная функция  
+function glavnaia(r::Robot) # - главная функция  
     for side in (Nord,West,Sud,Ost) # - перебор всех возможных направлений
         putmarkers!(r,side)
         move_markers(r,inverse(side))
@@ -21,3 +21,4 @@ move_markers(r::Robot,side::HorizonSide) =
 
 # Возвращает направление, противоположное заданному
 inverse(side::HorizonSide) = HorizonSide(mod(Int(side)+2, 4))
+

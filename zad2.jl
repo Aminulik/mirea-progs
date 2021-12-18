@@ -1,4 +1,4 @@
-function glavnaia!(r::Robot) # - главная функция 
+function glavnaia(r::Robot) # - главная функция 
     num_vert = moves!(r, Sud)
     num_hor = moves!(r, West) #УТВ: Робот - в Юго-Западном углу
     for sidе in (Nord, Ost, Sud, West)

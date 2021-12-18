@@ -1,4 +1,4 @@
-function great_painter(r::Robot) # - главная функция 
+function glavnaia(r::Robot)
     side=Ost
     num_hor=moves!(r,West)
     num_ver=moves!(r,Sud)
