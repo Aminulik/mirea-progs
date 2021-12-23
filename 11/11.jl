@@ -1,30 +1,37 @@
+#ДАНО: Робот - в произвольной клетке ограниченного прямоугольного поля,
+#на котором могут находиться также внутренние прямоугольные перегородки 
+#(все перегородки изолированы друг от друга, прямоугольники могут вырождаться в отрезки)
+
+#РЕЗУЛЬТАТ: Робот - в исходном положении, и в 4-х приграничных клетках, две из которых имеют ту же широту,
+#а две - ту же долготу, что и Робот, стоят маркеры.
+
 function glavnaia(r::Robot)
     num=0
-    actions=[]
+    act=[]
     while ((isborder(r,Sud))&&(isborder(r,West)))==false
-        push!(actions,moves!(r,West))
-        push!(actions,moves!(r,Sud))
+        push!(act,moves!(r,West))
+        push!(act,moves!(r,Sud))
         num+=2
     end
-    num_ver=0
-    num_hor=0
+    x=0
+    y=0
     for i in 1:num
         if isodd(i)==true
-            num_hor+=actions[i]
+            y+=act[i]
         else
-            num_ver+=actions[i]
+            x+=act[i]
         end
     end
     side=Nord
     for _ in 1:2
-        num_ver=mkord(r,side,num_ver)
+        x=mkord(r,side,x)
         side=next(side)
-        num_hor=mkord(r,side,num_hor)
+        y=mkord(r,side,y)
         side=next(side)
     end
     while (num>0)==true
         side=isodd(num) ? Ost : Nord
-        msteps(r,side,actions[num])
+        msteps(r,side,act[num])
         num-=1
     end
 end

@@ -38,7 +38,7 @@ function mark_or_no(r::Robot, x_coord::Int, y_coord::Int, size::Int)
     end
 end
 
-function move_to_side(r::Robot, side::HorizonSide)
+function move_to_side(r::Robot, side::HorizonSide) #двигает робота и отсчитывает координаты
     global X_COORD, Y_COORD
     if side==Nord
         Y_COORD+=1
@@ -52,7 +52,7 @@ function move_to_side(r::Robot, side::HorizonSide)
     move!(r,side)
 end
 
-function moves!(r::Robot,side::HorizonSide)
+function moves!(r::Robot,side::HorizonSide) #двигает робота и возвращает количество шагов
     num_steps=0
     while isborder(r,side)==false
         move!(r,side)

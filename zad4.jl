@@ -1,3 +1,8 @@
+#ДАНО: Робот - в произвольной клетке ограниченного прямоугольного поля
+#РЕЗУЛЬТАТ: Робот - в исходном положении, и клетки поля промакированы так: нижний ряд - полностью, 
+#следующий - весь, за исключением одной последней клетки на Востоке, следующий - за исключением двух 
+#последних клеток на Востоке, и т.д.
+
 function glavnaia(r::Robot) 
     side=Ost
     num_ver=moves!(r,Sud)
@@ -27,6 +32,7 @@ function glavnaia(r::Robot)
     move_back(r,Nord,num_ver)
     move_back(r,Ost,num_hor)
 end
+
 function moves!(r::Robot,side::HorizonSide)
     num_steps=0
     while isborder(r,side)==false
@@ -35,13 +41,15 @@ function moves!(r::Robot,side::HorizonSide)
     end
     return num_steps
 end
+
 function move_back(r::Robot,side::HorizonSide,num_steps::Int)
     if (num_steps<0)==true
-        side=inverse(side)
+        side=inverse(side) #обратно
         num_steps*=-1
     end
     for _ in 1:num_steps
         move!(r,side)
     end
 end
+# Возвращает направление, противоположное заданному
 inverse(side::HorizonSide)=HorizonSide(mod(Int(side)+2,4))

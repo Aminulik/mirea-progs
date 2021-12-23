@@ -1,32 +1,35 @@
-g=0
+#ДАНО: Робот - в юго-западном углу поля, на котором расставлено некоторое количество маркеров
+#РЕЗУЛЬТАТ: Функция вернула значение средней температуры всех замаркированных клеток
+
+function stemp(r::Robot, side::HorizonSide) #возврат значения суммы температур всех клеток в направлении
+    stemp=0
+    while isborder(r,side)==false
+        stemp+=check_temp(r)
+        move!(r,side)
+    end
+    stemp+=check_temp(r)
+    return stemp
+end
+
+s=0
 function glavnaia(r::Robot) 
-    global g=0
+    global s=0
     overal_temp=0
     side=Ost
     while isborder(r,Nord)==false
-        overal_temp+=row_temp(r,side)
+        overal_temp+=stemp(r,side)
         move!(r,Nord)
         side=inverse(side)
     end
-    overal_temp+=row_temp(r,side)
-    average_temp=overal_temp/g
+    overal_temp+=stemp(r,side)
+    average_temp=overal_temp/s
     return average_temp
 end
 
-function row_temp(r::Robot, side::HorizonSide)
-    row_temp=0
-    while isborder(r,side)==false
-        row_temp+=check_temp(r)
-        move!(r,side)
-    end
-    row_temp+=check_temp(r)
-    return row_temp
-end
-
 function check_temp(r::Robot)
-    global g
+    global s
     if ismarker(r)==true
-        g+=1
+        s+=1
         return temperature(r)
     else
         return 0

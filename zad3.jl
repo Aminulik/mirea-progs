@@ -1,3 +1,5 @@
+#ДАНО: Робот - в произвольной клетке ограниченного прямоугольного поля
+#РЕЗУЛЬТАТ: Робот - в исходном положении, и все клетки поля промакированы
 function glavnaia(r::Robot)
     num_ver=moves!(r,Sud)
     num_hor=moves!(r,West)
@@ -23,7 +25,7 @@ function moves!(r::Robot,side::HorizonSide)
     end
     return num_steps
 end
-function paint_row(r::Robot, side::HorizonSide)
+function paint_row(r::Robot, side::HorizonSide) 
     while isborder(r,side)==false
         move!(r,side)
         putmarker!(r)
